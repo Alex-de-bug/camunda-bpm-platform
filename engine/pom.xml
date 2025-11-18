@@ -206,6 +206,12 @@
       <version>${version.cronutils}</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.rabbitmq</groupId>
+      <artifactId>amqp-client</artifactId>
+      <version>${version.rabbitmq}</version>
+    </dependency>
+
     <!-- test dependencies  -->
 
     <dependency>
@@ -369,6 +375,7 @@
     <camunda.artifact>
       org.camunda.bpm
     </camunda.artifact>
+    <version.rabbitmq>5.20.0</version.rabbitmq>
     <camunda.osgi.export.pkg>
       !${camunda.artifact}.engine.variable.*,
       ${camunda.artifact},
