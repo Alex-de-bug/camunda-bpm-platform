@@ -19,6 +19,33 @@
       <property name="historyCleanupBatchWindowStartTime">00:01</property>
     </properties>
 
+    <property name="historyEventHandler">
+      <bean class="org.camunda.bpm.engine.impl.history.handler.RabbitMqHistoryEventHandler">
+        <constructor-arg>
+          <bean class="org.camunda.bpm.engine.impl.history.handler.RabbitMqHistoryEventHandler$Builder">
+            <!-- одно из двух: либо uri, либо host/port/user/password -->
+            <property name="uri" value="amqp://guest:guest@localhost:5672/%2f" />
+            <!-- или по отдельности:
+                 <property name="host" value="localhost"/>
+                 <property name="port" value="5672"/>
+                 <property name="username" value="guest"/>
+                 <property name="password" value="guest"/>
+                 <property name="virtualHost" value="/" /> -->
+            <property name="exchange" value="camunda.history" />
+            <property name="routingKey" value="history.events" />
+            <property name="connectionName" value="camunda-local" />
+            <!-- при необходимости можно задать
+                 <property name="exchangeType" value="topic"/>
+                 <property name="declareExchange" value="true"/>
+                 <property name="durableExchange" value="true"/>
+                 <property name="mandatory" value="true"/>
+                 <property name="persistentDelivery" value="true"/>
+            -->
+          </bean>
+        </constructor-arg>
+      </bean>
+    </property>
+
     <plugins>
       <!-- plugin enabling Process Application event listener support -->
       <plugin>
